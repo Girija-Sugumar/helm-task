@@ -53,7 +53,7 @@ configName: api-tester
 secretName: api-tester
 imagePullSecrets: 'gitlab-token-all-waymore'
 
-env: 'staging'
+env: ''
 environments:
   feature:
     namespace: "feature"
