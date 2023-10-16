@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   annotations:
+     configmap.reloader.stakater.com/reload: "{{ .Values.configName }}"
+     secret.reloader.stakater.com/reload: "{{ .Values.secretName }}"
+   labels:
+    app: {{ .Values.app.deploymentName }}
+   name: {{ .Values.app.deploymentName }}
+   namespace: {{ index .Values.environments .Values.env "namespace" }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.app.deploymentName }}
+  strategy:
+    type: {{ .Values.app.strategy }}
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.deploymentName }}
+    spec:
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}
+      restartPolicy: {{ .Values.app.restartPolicy }}       
+      containers:
+        - name: {{ .Values.app.deploymentName }}
+          image: {{ .Values.app.image }}
+          imagePullPolicy: {{ .Values.app.imagePullPolicy }}
+          resources:
+            requests:
+              cpu: {{ index .Values.environments .Values.env "request" "cpu" }}
+              memory: {{ index .Values.environments .Values.env "request" "memory" }}                     
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.configName }}
+            - secretRef:
+                name: {{ .Values.secretName }}                                                                                
+          # lifecycle:
+          #    postStart:
+          #      exec:
+          #        command: ["bash", "app-backend.sh"]    
+          #  volumeMounts:
+          #   - name: app-configmap-volume
+          #     mountPath: /root/.composer/auth.json
+          #     subPath: auth.json
+          #   - name: app-migrating-script
+          #     mountPath: /var/www/html/app-backend.sh
+          #     subPath: app-backend.sh                    
+      # volumes:
+      #   - name: app-configmap-volume
+      #     configMap: 
+      #        name: {{ .Values.configName }}
+      #        items:
+      #           - key: auth.json
+      #             path: auth.json       
+      #   - name: app-migrating-script
+      #     configMap: 
+      #        name: {{ .Values.configName }}
+      #        items:
+      #           - key: app-backend.sh
+      #             path: app-backend.sh
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ .Values.app.deploymentName }}
+  name: {{ .Values.app.deploymentName }}
+  namespace: {{ index .Values.environments .Values.env "namespace" }}
+spec:
+  selector:
+    app: {{ .Values.app.deploymentName }}
+  ports:
+    - name: "app"
+      port: {{ .Values.app.port }}
+      targetPort: {{ .Values.app.targetPort }} 
