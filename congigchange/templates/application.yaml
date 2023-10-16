@@ -1,25 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo
+  name: feature
   namespace: argocd
 spec:
   project: default
   source:
-    chart: helm-task
-    repoURL: https://github.com/Girija-Sugumar/helm-task.git
-    targetRevision: HEAD
+    repoURL: 'https://github.com/Girija-Sugumar/helm-task.git'
     path: .
-    helm:
-      releaseName: congigchange
+    targetRevision: HEAD
   destination:
-    server: "https://kubernetes.default.svc"
-    namespace: 'feature'
+    server: 'https://kubernetes.default.svc'
+    namespace: feature
   syncPolicy:
     automated:
-      selfHeal: true
-      prune: true
-    syncOptions:
-    - PruneLast=true
-    - ServerSideApply=true
-    - ApplyOutOfSyncOnly=true
+     prune: true
+     selfHeal: true
