@@ -53,7 +53,7 @@ configName: api-tester
 secretName: api-tester
 imagePullSecrets: 'gitlab-token-all-waymore'
 
-env: 'feature'
+env: 'staging'
 environments:
   feature:
     namespace: "feature"
@@ -125,7 +125,7 @@ environments:
     tag: "staging"
     nginxTag: "nginx-staging"
     configmap:
-      APP_NAME: "api-tester"
+      APP_NAME: "api-teste"
       APP_ENV: "staging"
       APP_KEY: "QmJCEOkLu3OfvVrJGLM86vTFo6A3OHC1"
       APP_URL: "https://api-tester.staging.env.waymore.io/"
@@ -146,7 +146,7 @@ environments:
       SESSION_LIFETIME: "120"
 
     secrets:
-      DB_CONNECTION: "mysql"
+      DB_CONNECTION: "mysq"
       DB_HOST: "api-tester-db"
       DB_DATABASE: "routee_live_test"
       DB_USERNAME: "test_price_api_usr"
