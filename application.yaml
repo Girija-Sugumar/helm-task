@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: featurehelm
+  name: featurehelm #argocdproj-name
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/Girija-Sugumar/helm-task.git'
-    path: congigchange
-    targetRevision: HEAD
+    path: congigchange #helm-chart name
+    targetRevision: HEAD #branchname
     helm:
      valueFiles:
       - values.yaml
      parameters:
       - name: "env"
-        value: feature
+        value: feature #envname 
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
