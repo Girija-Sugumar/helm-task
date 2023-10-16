@@ -60,7 +60,7 @@ environments:
     tag: "feature"
     nginxTag: "nginx-feature"
     configmap:
-      APP_NAME: "api-testing"
+      APP_NAME: "api-tests"
       APP_ENV: "feature"
       APP_KEY: "QmJCEOkLu3OfvVrJGLM86vTFo6A3OHC1"
       APP_URL: "https://api-tester.feature.env.waymore.io/"
@@ -81,7 +81,7 @@ environments:
       SESSION_LIFETIME: "120"
 
     secrets:
-      DB_CONNECTION: "mysql"
+      DB_CONNECTION: "mysql2"
       DB_HOST: "api-tester-db"
       DB_DATABASE: "routee_live_test"
       DB_USERNAME: "test_price_api_usr23"
