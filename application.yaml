@@ -10,8 +10,8 @@ spec:
     path: congigchange
     targetRevision: HEAD
     helm:
-     values: 
-       values.yaml
+     valueFiles:
+      - values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
