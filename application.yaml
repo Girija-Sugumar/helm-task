@@ -12,6 +12,9 @@ spec:
     helm:
      valueFiles:
       - values.yaml
+     parameters:
+      - name: "env"
+        value: feature
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
