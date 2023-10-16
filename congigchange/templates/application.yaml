@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: helm-task/
+    repoURL: https://github.com/Girija-Sugumar/helm-task.git
+    targetRevision: HEAD
+    path: .
+    helm:
+      releaseName: congigchange
+destination:
+    server: "https://kubernetes.default.svc"
+    namespace: feature
+syncPolicy:
+    #syncOptions:
+    #- CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
