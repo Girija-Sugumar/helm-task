@@ -125,7 +125,7 @@ environments:
     tag: "staging"
     nginxTag: "nginx-staging"
     configmap:
-      APP_NAME: "api-teste"
+      APP_NAME: "api-testings60"
       APP_ENV: "staging"
       APP_KEY: "QmJCEOkLu3OfvVrJGLM86vTFo6A3OHC1"
       APP_URL: "https://api-tester.staging.env.waymore.io/"
