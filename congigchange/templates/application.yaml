@@ -6,19 +6,20 @@ metadata:
 spec:
   project: default
   source:
-    chart: helm-task/
+    chart: helm-task
     repoURL: https://github.com/Girija-Sugumar/helm-task.git
     targetRevision: HEAD
     path: .
     helm:
       releaseName: congigchange
-destination:
+  destination:
     server: "https://kubernetes.default.svc"
-    namespace: feature
-syncPolicy:
-    #syncOptions:
-    #- CreateNamespace=true
-
+    namespace: 'feature'
+  syncPolicy:
     automated:
       selfHeal: true
       prune: true
+    syncOptions:
+    - PruneLast=true
+    - ServerSideApply=true
+    - ApplyOutOfSyncOnly=true
